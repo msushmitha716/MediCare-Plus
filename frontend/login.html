@@ -1,8 +1,70 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Log in · MediCare+</title><link rel="stylesheet" href="css/style.css"><script src="js/auth.js" defer></script></head>
-<body class="auth"><main class="card"><h1>MediCare+</h1><p>Log in to manage patients and appointments.</p>
-<form id="authForm" data-mode="login" novalidate>
-<div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="username"></div>
-<div class="field"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password"></div>
-<div class="err" id="err" role="alert"></div><button class="btn">Log in</button></form>
-<p style="margin-top:16px">New staff member? <a href="register.html">Create an account</a> · <a href="index.html">Home</a></p></main></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Log in · MediCare+</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<nav id="sidebar-menu"></nav>
+<body class="auth">
+  <main class="card">
+    <h1>MediCare+</h1>
+    <p>Log in to manage patients and appointments.</p>
+
+    <form id="authForm" data-mode="login" novalidate>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <div class="err" id="err" role="alert" style="color: red; margin-bottom: 10px;"></div>
+      <button class="btn" type="submit">Log in</button>
+    </form>
+
+    <p style="margin-top:16px">
+      New staff member? <a href="register.html">Create an account</a> · <a href="index.html">Home</a>
+    </p>
+  </main>
+
+  <!-- Include api.js, then the login script inside the body -->
+  <script src="js/api.js"></script>
+  <script>
+    document.getElementById('authForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const errDiv = document.getElementById('err');
+      errDiv.textContent = '';
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        errDiv.textContent = 'Please fill in all fields.';
+        return;
+      }
+
+      try {
+        const data = await api('/auth/login', {
+          method: 'POST',
+          body: { email, password }
+        });
+
+        // Save session details
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+
+        // Redirect to dashboard
+        location.href = 'dashboard.html';
+      } catch (err) {
+        errDiv.textContent = err.message || 'Login failed. Check your credentials.';
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+

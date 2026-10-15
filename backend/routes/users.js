@@ -7,9 +7,9 @@ const { authenticate, authorize } = require('../middleware/auth');
 
 router.use(authenticate);
 
-// any logged-in user: needed for the "choose doctor" dropdown
+// any logged-in user: used by the Doctors page and the appointment dropdown
 router.get('/doctors', wrap(async (req, res) => {
-  const [rows] = await db.query("SELECT id, name FROM users WHERE role='doctor' ORDER BY name");
+  const [rows] = await db.query("SELECT id, name, email FROM users WHERE role='doctor' ORDER BY name");
   res.json(rows);
 }));
 

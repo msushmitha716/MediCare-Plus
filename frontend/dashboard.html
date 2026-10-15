@@ -1,2 +1,30 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard · MediCare+</title><link rel="stylesheet" href="css/style.css"><script src="js/app.js" defer></script></head><body data-page="dashboard"></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard · MediCare+</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!-- 1. Load api.js first -->
+  <script src="js/api.js"></script>
+  <!-- 2. Then load app.js -->
+  <script src="js/app.js" defer></script>
+</head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Dashboard · MediCare+</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js" defer></script>
+</head>
+<body data-page="dashboard">
+
+  <!-- Sidebar with Role Restrictions -->
+  <nav id="sidebar-menu"></nav>
+
+  <!-- api.js placed inside the body -->
+  <script src="js/api.js"></script>
+<script src="js/sidebar.js"></script>
+<script src="js/patients.js"></script>   <!-- your page's own script -->
+</body>
+</html>

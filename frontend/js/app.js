@@ -1,4 +1,5 @@
 // MediCare+ frontend (Step 2). Data is kept in the browser (localStorage) ONLY until Step 5 connects the REST API.
+requireLogin(['admin', 'doctor', 'receptionist']);
 const NAV=[["dashboard","Dashboard","⌂"],["patients","Patients","☺"],["doctors","Doctors","✚"],["appointments","Appointments","◷"],["prescriptions","Prescriptions","℞"],["reports","Reports","▤"]];
 const $=(s,r=document)=>r.querySelector(s);
 const store={get:k=>JSON.parse(localStorage.getItem("mc_"+k)||"[]"),set:(k,v)=>localStorage.setItem("mc_"+k,JSON.stringify(v))};
@@ -81,3 +82,18 @@ function reports(){
 
 const page=document.body.dataset.page;
 if(page){shell(page);MODULES[page]?mountModule(MODULES[page],page):page==="dashboard"?dashboard():reports()}
+document.addEventListener('DOMContentLoaded', () => {
+  const userJson = localStorage.getItem('user');
+  if (!userJson) return;
+  
+  const user = JSON.parse(userJson);
+  console.log("Logged in as role:", user.role); // You can check this in F12 Console!
+
+  // Hide any sidebar element the user's role is not allowed to see
+  document.querySelectorAll('[data-roles]').forEach(el => {
+    const allowedRoles = el.getAttribute('data-roles').split(',');
+    if (!allowedRoles.includes(user.role)) {
+      el.style.display = 'none'; // Hides it completely!
+    }
+  });
+});

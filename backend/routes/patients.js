@@ -7,6 +7,13 @@ const { authenticate, authorize } = require('../middleware/auth');
 router.use(authenticate);
 
 router.get('/', wrap(async (req, res) => {
+  if (req.user.role === 'doctor') {
+    const [mine] = await db.query(
+      `SELECT DISTINCT p.* FROM patients p
+       JOIN appointments a ON a.patient_id = p.id
+       WHERE a.doctor_id = ? ORDER BY p.id DESC`, [req.user.id]);
+    return res.json(mine);
+  }
   const [rows] = await db.query('SELECT * FROM patients ORDER BY id DESC');
   res.json(rows);
 }));
