@@ -1,0 +1,82 @@
+:root {
+  --primary: #0a7ea4;
+  --primary-dark: #075e7a;
+  --accent: #2ec4b6;
+  --light: #f1f8fb;
+  --text: #1d3a4a;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background: #fff;
+  line-height: 1.6;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 48px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+}
+
+.logo { font-size: 1.6rem; font-weight: 700; color: var(--primary-dark); }
+.logo .cross {
+  display: inline-block; width: 32px; height: 32px; line-height: 32px;
+  text-align: center; background: var(--primary); color: #fff;
+  border-radius: 8px; margin-right: 6px;
+}
+.logo .plus { color: var(--accent); }
+
+nav a {
+  margin-left: 24px; text-decoration: none;
+  color: var(--text); font-weight: 500;
+}
+nav a:hover { color: var(--primary); }
+
+.hero {
+  padding: 100px 48px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  color: #fff;
+}
+.hero-text { max-width: 640px; }
+.hero h1 { font-size: 2.8rem; line-height: 1.2; margin-bottom: 16px; }
+.hero p { font-size: 1.1rem; margin-bottom: 12px; }
+.status { font-size: 0.95rem; opacity: 0.9; }
+
+.features, .about { padding: 64px 48px; text-align: center; }
+.features { background: var(--light); }
+h2 { color: var(--primary-dark); margin-bottom: 32px; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
+}
+.card {
+  background: #fff; padding: 28px 20px; border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(10, 126, 164, 0.12);
+  transition: transform 0.2s;
+}
+.card:hover { transform: translateY(-6px); }
+.card .icon { font-size: 2.2rem; margin-bottom: 8px; }
+.card h3 { color: var(--primary); margin-bottom: 8px; }
+
+.about p { max-width: 700px; margin: 0 auto; }
+
+footer {
+  text-align: center; padding: 20px;
+  background: var(--primary-dark); color: #fff;
+}
+
+@media (max-width: 600px) {
+  .navbar { padding: 12px 20px; }
+  .hero { padding: 60px 20px; }
+  .hero h1 { font-size: 2rem; }
+}
